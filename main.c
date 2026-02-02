@@ -6,44 +6,49 @@
 int main(int argc, char *argv[])
 {
     NodePtr head = NULL;
-    NodePtr temp = NULL;
-    NodePtr tmp = NULL;
+    NodePtr current = NULL;
+    NodePtr iter = NULL;
     int n, i;
 
     n = (argc - 1) / 2;
-    if (n <= 0) return 0;
+    if (n <= 0)
+        return 0;
 
-    head = malloc(sizeof(Node));
-    temp = head;
+    head = (NodePtr)malloc(sizeof(Node));
+    if (head == NULL)
+        return 1;
+
+    current = head;
 
     for (i = 0; i < n; i++)
     {
-        temp->id = atoi(argv[1 + i * 2]);
-        strcpy(temp->name, argv[2 + i * 2]);
+        current->id = atoi(argv[1 + i * 2]);
+        strcpy(current->name, argv[2 + i * 2]);
 
-        if (i < n - 1)
+        if (i != n - 1)
         {
-            temp->next = malloc(sizeof(Node));
-            temp = temp->next; }
+            current->next = (NodePtr)malloc(sizeof(Node));
+            current = current->next;
+        }
         else
         {
-            temp->next = NULL;
+            current->next = NULL;
         }
     }
 
-    tmp = head;
-    while (tmp)
+    iter = head;
+    while (iter != NULL)
     {
-        printf("%d %s\n", tmp->id, tmp->name);
-        tmp = tmp->next;
+        printf("%d %s\n", iter->id, iter->name);
+        iter = iter->next;
     }
 
-    tmp = head;
-    while (tmp)
+    iter = head;
+    while (iter != NULL)
     {
-        head = tmp->next;
-        free(tmp);
-        tmp = head;
+        head = iter->next;
+        free(iter);
+        iter = head;
     }
 
     return 0;
