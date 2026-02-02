@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         {
             temp->next = NULL;
         }
-    }
+    }//
 
     tmp = head;
     while (tmp)
